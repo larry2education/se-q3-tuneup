@@ -1,4 +1,4 @@
-#!/usr/bin/env python
+# !/usr/bin/env python
 # -*- coding: utf-8 -*-
 """Tuneup assignment
 
@@ -9,7 +9,6 @@ __author__ = "Larry Scott with help from John and Peter"
 
 import cProfile
 import pstats
-import functools
 import timeit
 
 
@@ -25,7 +24,7 @@ def profile(func):
         stat = pstats.Stats(my_profiler).sort_stats("cumulative")
         stat.print_stats(10)
         return results
-    return inner    
+    return inner
 
 
 def read_movies(src):
@@ -53,6 +52,7 @@ def find_duplicate_movies(src):
             duplicates.append(movie)
     return duplicates
 
+
 def optimized_find_duplicate_movies(src):
     """Returns an optimized list of duplicate movies from a src list."""
     movies = read_movies(src)
@@ -77,16 +77,14 @@ def timeit_helper(func_name, func_param):
     num_repeats = 5
     result = t.repeat(repeat=num_repeats, number=runs_per_repeat)
     time_cost = min(result)/num_repeats
-    print(f"""func={func_name} num_repeats={num_repeats} 
+    print(f"""func={func_name} num_repeats={num_repeats}
     runs_per_repeat={runs_per_repeat} time_cost={time_cost:.3f} sec""")
     return t
 
 
 def main():
     """Computes a list of duplicate movie entries."""
-
     filename = 'movies.txt'
-
     print("--- Before optimization ---")
     result = find_duplicate_movies(filename)
     print(f'Found {len(result)} duplicate movies:')
@@ -105,9 +103,10 @@ def main():
 
     print("\n--- cProfile results, before optimization ---")
     profile(find_duplicate_movies)(filename)
-    
+
     print("\n--- cProfile results, after optimization ---")
     profile(optimized_find_duplicate_movies)(filename)
+
 
 if __name__ == '__main__':
     main()
